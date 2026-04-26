@@ -1,12 +1,10 @@
 package com.sabtok.controller;
 
+import com.sabtok.service.SaveIncomingLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -17,6 +15,9 @@ public class MessagePublishController {
 
     private static final String TOPIC = "sab-event";
     private static final String KEY = "Log";
+
+    @Autowired
+    private SaveIncomingLog incomingLog;
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -38,5 +39,10 @@ public class MessagePublishController {
             }
         });
         return response.get();
+    }
+
+    @GetMapping("/logs")
+    public Object getMessageList(){
+        return incomingLog.getAllLogs();
     }
 }

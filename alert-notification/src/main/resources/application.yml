@@ -3,15 +3,21 @@ spring:
     name: sab-notification-service
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: admin1
-    url: jdbc:mysql://localhost:3306/z_dev_kharcha
-    username: root
+    #driver-class-name: org.postgresql.Driver
+    password: password
+    url: jdbc:postgresql://db-postgres:5432/exampledb
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    #dialect: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
+    bootstrap-servers: kafka:9092
     consumer:
       auto-offset-reset: earliest
-      bootstrap-servers: localhost:9092
       group-id: group-id
       properties:
         allow:
@@ -23,8 +29,6 @@ spring:
     producer:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      bootstrap-servers: localhost:9092
-
 server:
   port: 8081
 
