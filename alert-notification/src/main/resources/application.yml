@@ -2,8 +2,10 @@ spring:
   application:
     name: sab-notification-service
   config:
-     import: optional:configserver:http://localhost:8888
+     #import: optional:configserver:http://localhost:8888
+     import: configserver:http://host.docker.internal:8888
      fail-fast: true
 
   profiles:
-     active: DEV
+     #active: DEV
+     active: STAGE
