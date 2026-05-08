@@ -1,39 +1,9 @@
 spring:
   application:
     name: sab-notification-service
+  config:
+     import: optional:configserver:http://localhost:8888
+     fail-fast: true
 
-  datasource:
-    #driver-class-name: org.postgresql.Driver
-    password: password
-    url: jdbc:postgresql://db-postgres:5432/exampledb
-    username: postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    #dialect: org.hibernate.dialect.PostgreSQLDialect
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  kafka:
-    bootstrap-servers: kafka:9092
-    consumer:
-      auto-offset-reset: earliest
-      group-id: group-id
-      properties:
-        allow:
-          auto:
-            create:
-              topics: 'false'
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-server:
-  port: 8081
-
-logging:
-  level:
-    org:
-      apache:
-        kafka: 'OFF'
+  profiles:
+     active: DEV
