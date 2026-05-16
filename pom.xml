@@ -26,7 +26,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>25</java.version>
+		<java.version>17</java.version>
 		<springframework.boot.version>4.0.5</springframework.boot.version>
 		<spring-cloud.version>2025.1.0-RC1</spring-cloud.version>
 	</properties>
@@ -94,6 +94,16 @@
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>1.18.24</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sabtok</groupId>
+				<artifactId>sab-notification-dto</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sabtok</groupId>
+				<artifactId>sab-kafka-ms</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
