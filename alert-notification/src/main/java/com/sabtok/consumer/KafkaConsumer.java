@@ -1,8 +1,11 @@
 package com.sabtok.consumer;
 
+import com.sabtok.convertor.NotificationMessageConvertor;
 import com.sabtok.events.AlertEventProcessService;
+import com.sabtok.events.EventProcessServiceLocator;
 import com.sabtok.listner.BaseMessageListner;
 import com.sabtok.records.MessageLog;
+import com.sabtok.request.HeaderNotification;
 import com.sabtok.service.SaveIncomingLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +15,15 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
+
 public class KafkaConsumer extends BaseMessageListner {
 
     @Autowired
     private SaveIncomingLog saveIncomingLog;
 
     @Autowired
-    private AlertEventProcessService alertEventProcessService;
+    private EventProcessServiceLocator eventProcessServiceLocator;
+
 
    /* @KafkaListener(topics = "sab-event", groupId = "group_id")
     public void consumeMessage(String message) {
@@ -31,7 +36,7 @@ public class KafkaConsumer extends BaseMessageListner {
             groupId = "sab-notification-service")
     public void consumeMessage(String message) {
         System.out.println(message);
-        alertEventProcessService.processEvent(message);
-
+        HeaderNotification header = new NotificationMessageConvertor().getHeaderFromMessage(message);
+        eventProcessServiceLocator.getEventService(header.getEventType()).processEvent(message);
     }
 }
